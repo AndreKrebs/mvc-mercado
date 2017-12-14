@@ -3,24 +3,21 @@ CREATE SEQUENCE produto_pk_seq
 	INCREMENT 1
 	NO MAXVALUE
 	CACHE 1;
-ALTER TABLE fact_stock_data_detail_seq owner TO pgadmin;
 
 CREATE SEQUENCE tipo_produto_pk_seq 
 	START 1
 	INCREMENT 1
 	NO MAXVALUE
 	CACHE 1;
-ALTER TABLE fact_stock_data_detail_seq owner TO pgadmin;
 
 CREATE SEQUENCE compra_pk_seq 
 	START 1
 	INCREMENT 1
 	NO MAXVALUE
 	CACHE 1;
-ALTER TABLE fact_stock_data_detail_seq owner TO pgadmin;
 
 CREATE TABLE produto (
-	id 	bigint unique not null,
+	id 	bigint unique not null primary key,
 	tipo_produto_id bigint not null,
 	nome character varying(60) not null,
 	preco decimal(10, 2) not null
@@ -28,28 +25,28 @@ CREATE TABLE produto (
 
 
 CREATE TABLE tipo_produto (
-	id 	bigint unique not null,
+	id 	bigint unique not null primary key,
 	imposto decimal(5,2) not null,
 	tipo character varying(60) not null,
 	descricao character varying(255) not null
 );
 
 CREATE TABLE compra (
-	id 	bigint unique not null,
+	id 	bigint unique not null primary key,
 	total decimal(10, 2) not null
 );
 
 CREATE TABLE compra_produto (
-	id 	bigint unique not null,
+	id 	bigint unique not null primary key,
 	compra_id bigint not null,
 	produto_id bigint not null,
 	total decimal(10, 2) not null
 );
 
 
-UPDATE produto SET id=nextval('produto_pk_seq');
-UPDATE tipo_produto SET id=nextval('tipo_produto_pk_seq');
-UPDATE compra SET id=nextval('compra_pk_seq');
+ALTER TABLE produto ALTER COLUMN id SET DEFAULT nextval('produto_pk_seq'::regclass);
+ALTER TABLE tipo_produto ALTER COLUMN id SET DEFAULT nextval('tipo_produto_pk_seq'::regclass);
+ALTER TABLE compra ALTER COLUMN id SET DEFAULT nextval('compra_pk_seq'::regclass);
 
 ALTER TABLE produto 
    ADD CONSTRAINT fk_produto_tipo_produto
