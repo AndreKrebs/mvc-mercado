@@ -1,5 +1,6 @@
 <?php
 use Config\Database\Data as DB;
+include 'configs/data.config.php';
 
 class IndexController {
     
