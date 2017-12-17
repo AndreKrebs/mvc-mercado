@@ -1,12 +1,3 @@
-<?php
-ini_set('display_errors', 1);
-ini_set('log_errors', 1);
-ini_set('error_log', dirname(__FILE__) . '/error_log.txt');
-error_reporting(E_ALL);
-
-include 'controller/index.controller.php';
-
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,6 +17,7 @@ include 'controller/index.controller.php';
                     <li class="active"><a href="#">Início</a></li>
                     <li><a href="compras.php">Nova Compra</a></li>
                     <li><a href="produtos.php">Produtos</a></li>
+                    <li><a href="tipos-produto.php">Tipos de produto</a></li>
                 </ul>
             </div>
         </nav>
