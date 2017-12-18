@@ -1,10 +1,10 @@
-<?php namespace Model;
+<?php namespace model;
 
-include 'configs/data.config.php';
-include 'dao/tipo-produto.dao.php';
+//include 'configs/data.config.php';
+//include 'dao/tipo-produto.dao.php';
 
-use Config\Database as DB;
-use DAO\TiposProdutoDAO as TPDAO;
+use configs\Database as DB;
+use dao\TiposProdutoDAO as TPDAO;
 
 class TiposProdutoModel {
     

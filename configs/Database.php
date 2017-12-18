@@ -1,5 +1,5 @@
 <?php 
-namespace Config;
+namespace configs;
 
 class Database {
     public $dbcon;

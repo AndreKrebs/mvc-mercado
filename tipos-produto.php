@@ -1,11 +1,12 @@
 <?php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-include 'configs/pagination.php';
-include 'controller/tipos-produto.controller.php';
+include 'configs/config.php';
+//include 'configs/pagination.php';
+//include 'controller/tipos-produto.controller.php';;
 
-use Controller\TiposProdutoController;
-use Config\Pagination;
+use controller\TiposProdutoController;
+use configs\Pagination;
 
 $tiposProduto = new TiposProdutoController();
 ?>

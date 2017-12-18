@@ -1,7 +1,8 @@
-<?php namespace Controller;
+<?php namespace controller;
 
-include 'model/tipos-produto.model.php';
-use Model\TiposProdutoModel as TPModel;
+//include 'configs/config.php';
+//include 'model/tipos-produto.model.php';
+use model\TiposProdutoModel as TPModel;
 
 class TiposProdutoController {
     

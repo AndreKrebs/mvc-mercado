@@ -1,4 +1,4 @@
-<?php namespace Config;
+<?php namespace configs;
 
 class Pagination {
 
