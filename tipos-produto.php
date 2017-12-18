@@ -1,9 +1,11 @@
 <?php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+include 'configs/pagination.php';
 include 'controller/tipos-produto.controller.php';
 
 use Controller\TiposProdutoController;
+use Config\Pagination;
 
 $tiposProduto = new TiposProdutoController();
 ?>
@@ -32,7 +34,7 @@ $tiposProduto = new TiposProdutoController();
                 </ul>
             </div>
         </nav>
-        <div class="container fill" style="background-color: red; position: relative;">
+        <div class="container fill" style="position: relative;">
             <h3>Tipos de produto </h3>
 
             <table class="table">
@@ -46,7 +48,11 @@ $tiposProduto = new TiposProdutoController();
                 </thead>
                 <tbody>
                     <?php
-                    $lista = $tiposProduto->lista();
+                    $paginacao = new Pagination();
+                    // pega valor padrão de registros por paginas
+                    $totalPorPagina = $paginacao->recordsPerPage;
+                    
+                    $lista = $tiposProduto->lista($totalPorPagina);
 
                     if (is_array($lista)) {
                         foreach ($lista as $item) {
@@ -61,12 +67,28 @@ $tiposProduto = new TiposProdutoController();
                     ?>
                 </tbody>
             </table>
+            <?php
+            // consulta no bd o total de registros
+            $totalRegistros = $tiposProduto->totalRegistros();
+            
+            // pagina atual
+            $currentPage = $tiposProduto->currentPage;
+            ?>
             <ul class="pagination bottom-pagination">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
+                <?php
+                $totalPaginas = (int)($totalRegistros/$totalPorPagina);
+                if($totalPaginas>0):
+                    for($i=0; $i<$totalPaginas; $i++):
+                    ?>
+                        <li class="<?php echo ($currentPage==$i?'active':'') ?>">
+                            <a href="?pg=<?php echo $i ?>"><?php echo $i+1 ?></a>
+                        </li>
+                    <?php
+                    endfor;
+                    ?>
+                <?php
+                endif;
+                ?>
             </ul>
         </div>
 

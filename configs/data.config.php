@@ -1,7 +1,7 @@
 <?php 
-namespace Config\Database;
+namespace Config;
 
-class Data {
+class Database {
     public $dbcon;
     
     public function __construct() {

@@ -3,7 +3,7 @@
 include 'configs/data.config.php';
 include 'dao/tipo-produto.dao.php';
 
-use Config\Database\Data as DB;
+use Config\Database as DB;
 use DAO\TiposProdutoDAO as TPDAO;
 
 class TiposProdutoModel {
@@ -15,11 +15,11 @@ class TiposProdutoModel {
         $this->conexao = new DB(); 
     }
     
-    public function lista() {
+    public function lista($itensPorPagina, $currentPage) {
         
         $dao = new TPDAO();
         
-        $lista = $dao->lista();
+        $lista = $dao->lista($itensPorPagina, $currentPage);
         
         if($lista == 0) {
             return [];
@@ -29,6 +29,20 @@ class TiposProdutoModel {
             return $lista;
         }
     }
+    
+    public function totalRegistros() {
+        
+        $dao = new TPDAO();
+        
+        $total = $dao->totalRegistros();
+        
+        if($total<0) {
+            return "Ocorreu um erro na paginação";
+        } else {
+            return $total;
+        }
+    }
+    
 }
 
 
