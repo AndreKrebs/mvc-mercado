@@ -3,11 +3,16 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 include '../../configs/config.php';
-//include '../../controller/tipos-produto.controller.php';
 
 use controller\TiposProdutoController;
 
 $tiposProduto = new TiposProdutoController();
+
+// se vai editar um registro
+$tiposProduto->buscaRegistro();
+
+// se submeter o form ele salva
+$tiposProduto->adicionarSalvar();
 
 ?>
 <!DOCTYPE html>
@@ -37,6 +42,23 @@ $tiposProduto = new TiposProdutoController();
         </nav>
         <div class="container fill" style="position: relative;">
             <h3>Tipos de produto </h3>
+            
+            <form method="post">
+                <input type="hidden" class="form-control" name="id" id="id">
+                <div class="form-group">
+                    <label for="tipo">Tipo:</label>
+                    <input type="text" class="form-control" name="tipo" id="tipo">
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    <input type="text" class="form-control" name="descricao" id="descricao">
+                </div>
+                <div class="form-group">
+                    <label for="imposto">Imposto:</label>
+                    <input type="number" class="form-control" name="imposto" id="imposto">
+                </div>
+                <button type="submit" class="btn btn-default">Salvar</button>
+            </form>
 
         </div>
 

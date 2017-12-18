@@ -1,8 +1,5 @@
 <?php namespace model;
 
-//include 'configs/data.config.php';
-//include 'dao/tipo-produto.dao.php';
-
 use configs\Database as DB;
 use dao\TiposProdutoDAO as TPDAO;
 
@@ -25,7 +22,7 @@ class TiposProdutoModel {
             return [];
         } else if($lista<0){
             return "Ocorreu um erro na consulta";
-        }else {
+        } else {
             return $lista;
         }
     }
@@ -41,6 +38,41 @@ class TiposProdutoModel {
         } else {
             return $total;
         }
+    }
+    
+    public function novoRegistro($tipoProduto) {
+        
+        $dao = new TPDAO();
+        
+        $retorno = $dao->novoRegistro($tipoProduto);
+        
+        if ($retorno) {
+            return "Cadastro de Tipo de Produto realizado";
+        } else {
+            return "Falha ao tentar cadastrar Tipo de Produto";
+        }
+    }
+    
+    public function atualizaRegistro($tipoProduto) {
+        
+        $dao = new TPDAO();
+        
+        $retorno = $dao->atualizaRegistro($tipoProduto);
+        print_r($retorno);
+        if ($retorno) {
+            return "Cadastro de Tipo de Produto atualizado";
+        } else {
+            return "Falha ao tentar atualizar Tipo de Produto";
+        }
+        
+    }
+    
+    public function buscaRegistro($id) {
+        
+        $dao = new TPDAO();
+        
+        return $dao->buscaRegistro($id);
+        
     }
     
 }

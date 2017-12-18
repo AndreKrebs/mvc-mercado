@@ -1,7 +1,5 @@
 <?php namespace controller;
 
-//include 'configs/config.php';
-//include 'model/tipos-produto.model.php';
 use model\TiposProdutoModel as TPModel;
 
 class TiposProdutoController {
@@ -24,10 +22,32 @@ class TiposProdutoController {
         return $tiposProduto;
     }
     
+    public function adicionarSalvar() {
+        
+        if($_POST) {
+            $tipoProduto = $_POST;
+            $model = new TPModel();
+            
+            if($tipoProduto['id']>0) { // update
+                return $model->atualizaRegistro($tipoProduto);
+            } else { // novo registro
+                return $model->novoRegistro($tipoProduto);
+            }
+        }
+        
+    }
+    
+    public function buscaRegistro() {
+        if($_GET['id']>0) {
+            $model = new TPModel();
+            
+            return $model->buscaRegistro($_GET['id']);
+        }
+        
+        return "Registro inválido";
+    }
     
     public function totalRegistros() {
-        $total = 0;
-        
         $model = new TPModel();
         
         $total = $model->totalRegistros();
