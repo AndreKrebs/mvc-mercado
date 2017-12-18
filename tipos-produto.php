@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 include 'controller/tipos-produto.controller.php';
+
 use Controller\TiposProdutoController;
 
 $tiposProduto = new TiposProdutoController();
@@ -12,6 +13,8 @@ $tiposProduto = new TiposProdutoController();
         <title>Mercado - início</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="./content/css/reset.css"> 
+        <link rel="stylesheet" type="text/css" href="./content/css/style.css"> 
         <link rel="stylesheet" type="text/css" href="./content/css/bootstrap/bootstrap.min.css"> 
 
     </head>
@@ -29,9 +32,9 @@ $tiposProduto = new TiposProdutoController();
                 </ul>
             </div>
         </nav>
-        <div class="container">
+        <div class="container fill" style="background-color: red; position: relative;">
             <h3>Tipos de produto </h3>
-            
+
             <table class="table">
                 <thead>
                     <tr>
@@ -43,11 +46,28 @@ $tiposProduto = new TiposProdutoController();
                 </thead>
                 <tbody>
                     <?php
-                        $tiposProduto->
+                    $lista = $tiposProduto->lista();
+
+                    if (is_array($lista)) {
+                        foreach ($lista as $item) {
+                            echo "<tr>";
+                            echo "<td>{$item['id']}</td>";
+                            echo "<td>{$item['descricao']}</td>";
+                            echo "<td>{$item['tipo']}</td>";
+                            echo "<td>{$item['imposto']}</td>";
+                            echo "</tr>";
+                        }
+                    }
                     ?>
                 </tbody>
             </table>
-            
+            <ul class="pagination bottom-pagination">
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+            </ul>
         </div>
 
     </body>
