@@ -1,6 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 include 'configs/config.php';
 
 use controller\TiposProdutoController;
@@ -27,7 +25,7 @@ $tiposProduto = new TiposProdutoController();
                     <a class="navbar-brand" href="#">SoftExpert</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li><a href="index.php">Início</a></li>
+                    <li><a href="<?=HOST_APPLICATION?>">Início</a></li>
                     <li><a href="compras.php">Nova Compra</a></li>
                     <li><a href="produtos.php">Produtos</a></li>
                     <li class="active"><a href="<?=HOST_APPLICATION?>/tipos-produto.php" >Tipos de produto</a></li>

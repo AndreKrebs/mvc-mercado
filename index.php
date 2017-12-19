@@ -1,3 +1,6 @@
+<?php
+include 'configs/config.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,16 +17,15 @@
                     <a class="navbar-brand" href="#">SoftExpert</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Início</a></li>
+                    <li class="active"><a href="<?=HOST_APPLICATION?>">Início</a></li>
                     <li><a href="compras.php">Nova Compra</a></li>
                     <li><a href="produtos.php">Produtos</a></li>
-                    <li><a href="tipos-produto.php">Tipos de produto</a></li>
+                    <li><a href="<?=HOST_APPLICATION?>/tipos-produto.php">Tipos de produto</a></li>
                 </ul>
             </div>
         </nav>
         <div class="container">
-            <h3>Bem vindo </h3>
-            <!--<p>A navigation bar is a navigation header that is placed at the top of the page.</p>-->
+            <h3>Bem vindo ao sistema Mercado da SoftExpert</h3>
         </div>
 
     </body>
