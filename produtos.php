@@ -1,10 +1,10 @@
 <?php
 include 'configs/config.php';
 
-use controller\TiposProdutoController;
+use controller\ProdutosController;
 use configs\Pagination;
 
-$tiposProduto = new TiposProdutoController();
+$produtos = new ProdutosController();
 
 ?>
 <!DOCTYPE html>
@@ -33,34 +33,35 @@ $tiposProduto = new TiposProdutoController();
             </div>
         </nav>
         <div class="container fill" style="position: relative;">
-            <h3>Tipos de produto </h3>
+            <h3>Produtos</h3>
             
             <?php 
-            if(is_array($tiposProduto->mensagem) && $tiposProduto->mensagem['type']=='ERROR'): ?>
+            if(is_array($produtos->mensagem) && $produtos->mensagem['type']=='ERROR'): ?>
                 <div class="alert alert-warning">
-                    <strong>Erro! </strong><?=$tiposProduto->mensagem['mensagem']?> 
+                    <strong>Erro! </strong><?=$produtos->mensagem['mensagem']?> 
                 </div>
             <?php
             endif;
-            if(is_array($tiposProduto->mensagem) && $tiposProduto->mensagem['type']=='SUCCESS'): ?>
+            if(is_array($produtos->mensagem) && $produtos->mensagem['type']=='SUCCESS'): ?>
                 <div class="alert alert-success">
-                    <strong>Sucesso!</strong> <?=$tiposProduto->mensagem['mensagem']?>.
+                    <strong>Sucesso!</strong> <?=$produtos->mensagem['mensagem']?>.
                 </div>
             <?php
             endif;
             ?>
             <div>
             
-            <button type="button" class="btn btn-success" onclick="location.href='<?=HOST_APPLICATION?>/view/tipos-produto/form.php'">Cadastrar novo</button>
+            <button type="button" class="btn btn-success" onclick="location.href='<?=HOST_APPLICATION?>/view/produtos/form.php'">Cadastrar novo</button>
             
             <table class="table" style="margin-bottom: 35px;">
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Descrição</th>
-                        <th>Tipo</th>
-                        <th>Imposto(%)</th>
-                        <th>Ação</th>
+                        <th>Nome</th>
+                        <th>Tipo Produto</th>
+                        <th>Preço</th>
+                        <th>Produtor</th>
+                        <th>Distribuidor</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,7 +70,7 @@ $tiposProduto = new TiposProdutoController();
                     // pega valor padrão de registros por paginas
                     $totalPorPagina = $paginacao->recordsPerPage;
                     
-                    $lista = $tiposProduto->lista($totalPorPagina);
+                    $lista = $produtos->lista($totalPorPagina);
                     
                     // alerta se retornou string
                     if(is_string($lista)) { ?>
@@ -81,12 +82,14 @@ $tiposProduto = new TiposProdutoController();
                         foreach ($lista as $item) {
                             echo "<tr>";
                             echo "<td>{$item['id']}</td>";
-                            echo "<td>{$item['descricao']}</td>";
+                            echo "<td>{$item['nome']}</td>";
                             echo "<td>{$item['tipo']}</td>";
-                            echo "<td>{$item['imposto']}</td>";
+                            echo "<td>{$item['preco']}</td>";
+                            echo "<td>{$item['produtor']}</td>";
+                            echo "<td>{$item['distribuidor']}</td>";
                             echo "<td>";
-                            echo "<button type=\"button\" class=\"btn btn-primary\" onclick=\"location.href='".HOST_APPLICATION."/view/tipos-produto/form.php?id={$item['id']}'\">Editar</button>";
-                            echo "<button type=\"button\" class=\"btn btn-danger\" style='margin-left: 10px;' onclick=\"location.href='".HOST_APPLICATION."/view/tipos-produto/excluir.php?id={$item['id']}'\">Excluir</button>";
+                            echo "<button type=\"button\" class=\"btn btn-primary\" onclick=\"location.href='".HOST_APPLICATION."/view/produtos/form.php?id={$item['id']}'\">Editar</button>";
+                            echo "<button type=\"button\" class=\"btn btn-danger\" style='margin-left: 10px;' onclick=\"location.href='".HOST_APPLICATION."/view/produtos/excluir.php?id={$item['id']}'\">Excluir</button>";
                             echo "</td>";
                             echo "</tr>";
                         }
@@ -96,10 +99,10 @@ $tiposProduto = new TiposProdutoController();
             </table>
             <?php
             // consulta no bd o total de registros
-            $totalRegistros = $tiposProduto->totalRegistros();
+            $totalRegistros = $produtos->totalRegistros();
             
             // pagina atual
-            $currentPage = $tiposProduto->currentPage;
+            $currentPage = $produtos->currentPage;
             ?>
             <ul class="pagination bottom-pagination">
                 <?php

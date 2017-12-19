@@ -19,13 +19,13 @@ include 'configs/config.php';
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="<?=HOST_APPLICATION?>">Início</a></li>
                     <li><a href="compras.php">Nova Compra</a></li>
-                    <li><a href="produtos.php">Produtos</a></li>
+                    <li><a href="<?=HOST_APPLICATION?>/produtos.php">Produtos</a></li>
                     <li><a href="<?=HOST_APPLICATION?>/tipos-produto.php">Tipos de produto</a></li>
                 </ul>
             </div>
         </nav>
         <div class="container">
-            <h3>Bem vindo ao sistema Mercado da SoftExpert</h3>
+            <h3>Bem vindo ao sistema da SoftExpert</h3>
         </div>
 
     </body>
