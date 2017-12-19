@@ -87,11 +87,11 @@ class TiposProdutoDAO {
         $where = " ";
         $startFor = 0;
         
+        $where .= " WHERE id = {$tipoProduto['id']}";
+        echo $where;
+        
         foreach ($tipoProduto as $key=>$tp) {
-            if(empty($tp) || $key == 'id') {
-                if($key == 'id') {
-                    $where .= " WHERE id = {$key}";
-                }
+            if(empty($tp)) {
                 continue;
             }
             

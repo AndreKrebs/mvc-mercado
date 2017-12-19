@@ -61,6 +61,7 @@ $tiposProduto = new TiposProdutoController();
                         <th>Descrição</th>
                         <th>Tipo</th>
                         <th>Imposto(%)</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,6 +85,9 @@ $tiposProduto = new TiposProdutoController();
                             echo "<td>{$item['descricao']}</td>";
                             echo "<td>{$item['tipo']}</td>";
                             echo "<td>{$item['imposto']}</td>";
+                            echo "<td>";
+                            echo "<button type=\"button\" class=\"btn btn-primary\" onclick=\"location.href='".HOST_APPLICATION."/view/tipos-produto/form.php?id={$item['id']}'\">Editar</button>";
+                            echo "</td>";
                             echo "</tr>";
                         }
                     }
