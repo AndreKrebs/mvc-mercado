@@ -38,13 +38,19 @@ class TiposProdutoController {
     }
     
     public function buscaRegistro() {
-        if($_GET['id']>0) {
-            $model = new TPModel();
-            
-            return $model->buscaRegistro($_GET['id']);
+        if(@$_GET) {
+            if(array_key_exists('id', $_GET)) {
+                if($_GET['id']>0) {
+                    $model = new TPModel();
+
+                    $tipoProduto = $model->buscaRegistro($_GET['id']);
+
+                    return $tipoProduto;
+                }
+            } else {
+                return "Registro inválido";
+            }
         }
-        
-        return "Registro inválido";
     }
     
     public function totalRegistros() {

@@ -6,14 +6,13 @@ include '../../configs/config.php';
 
 use controller\TiposProdutoController;
 
-$tiposProduto = new TiposProdutoController();
+$tiposProdutoCtrl = new TiposProdutoController();
 
 // se vai editar um registro
-$tiposProduto->buscaRegistro();
+$tipoProduto = $tiposProdutoCtrl->buscaRegistro();
 
 // se submeter o form ele salva
-$tiposProduto->adicionarSalvar();
-
+$salvo = $tiposProdutoCtrl->adicionarSalvar();
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,21 +40,36 @@ $tiposProduto->adicionarSalvar();
             </div>
         </nav>
         <div class="container fill" style="position: relative;">
-            <h3>Tipos de produto </h3>
+            <h3>Formulário Tipo de Produto </h3>
+            
+            <?php 
+            if(!is_array($tipoProduto) && is_string($tipoProduto)): ?>
+                <div class="alert alert-warning">
+                    <strong>Atenção! </strong><?=$tipoProduto?> 
+                </div>
+            <?php
+            endif;
+            if($salvo): ?>
+                <div class="alert alert-warning">
+                    <strong>Atenção! </strong><?=$tipoProduto?> 
+                </div>
+            <?php
+            endif;
+            ?>
             
             <form method="post">
-                <input type="hidden" class="form-control" name="id" id="id">
+                <input type="hidden" class="form-control" name="id" id="id" value="<?=(is_array($tipoProduto)?$tipoProduto['id']:'')?>">
                 <div class="form-group">
                     <label for="tipo">Tipo:</label>
-                    <input type="text" class="form-control" name="tipo" id="tipo">
+                    <input type="text" class="form-control" name="tipo" id="tipo" value="<?=(is_array($tipoProduto)?$tipoProduto['tipo']:'')?>">
                 </div>
                 <div class="form-group">
                     <label for="descricao">Descrição:</label>
-                    <input type="text" class="form-control" name="descricao" id="descricao">
+                    <input type="text" class="form-control" name="descricao" id="descricao" value="<?=(is_array($tipoProduto)?$tipoProduto['descricao']:'')?>">
                 </div>
                 <div class="form-group">
                     <label for="imposto">Imposto:</label>
-                    <input type="number" class="form-control" name="imposto" id="imposto">
+                    <input type="number" class="form-control" name="imposto" id="imposto" value="<?=(is_array($tipoProduto)?$tipoProduto['imposto']:'')?>">
                 </div>
                 <button type="submit" class="btn btn-default">Salvar</button>
             </form>

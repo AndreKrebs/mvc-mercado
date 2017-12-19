@@ -75,9 +75,15 @@ class TiposProdutoDAO {
         $valores .= ")";
         
         $sql .= $campos . $valores;
-        $result = pg_query($sql);
+        $resultado = pg_query($sql);
+        echo $sql;
+        var_dump(pg_fetch_row($resultado));
+        print_r(pg_last_oid(pg_affected_rows($resultado)));
         
-        return $result;
+//        $tipoProduto2 = pg_fetch_array($resultado, null, PGSQL_ASSOC);
+//        echo "---->";
+//        print_r(pg_last_oid($resultado));
+        return $resultado;
         
     }
     
@@ -110,7 +116,7 @@ class TiposProdutoDAO {
     }
     
     public function buscaRegistro($id) {
-        $sql = "SELECT * FROM item_produto WHERE id = {$id}";
+        $sql = "SELECT * FROM tipo_produto WHERE id = {$id}";
         
         $resultado = pg_query($sql);
         

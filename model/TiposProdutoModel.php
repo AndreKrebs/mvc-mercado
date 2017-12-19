@@ -71,8 +71,9 @@ class TiposProdutoModel {
         
         $dao = new TPDAO();
         
-        return $dao->buscaRegistro($id);
-        
+        $tipoProduto = $dao->buscaRegistro($id);
+
+        return $tipoProduto;
     }
     
 }
