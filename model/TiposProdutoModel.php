@@ -75,6 +75,20 @@ class TiposProdutoModel {
         return $tipoProduto;
     }
     
+    public function excluir($id) {
+        if($id>0) {
+            $dao = new TPDAO();
+            
+            $retorno = $dao->excluir($id);
+            
+            if($retorno===true) {
+                return array("mensagem"=>"Cadastro de Tipo de Produto excluido com sucesso","type"=>"SUCCESS");
+            } else {
+                return array("mensagem"=>"Não foi possivel excluir cadastro de Tipo de Produto","type"=>"ERROR");
+            }
+        }
+    }
+    
 }
 
 

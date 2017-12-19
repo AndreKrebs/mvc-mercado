@@ -88,7 +88,6 @@ class TiposProdutoDAO {
         $startFor = 0;
         
         $where .= " WHERE id = {$tipoProduto['id']}";
-        echo $where;
         
         foreach ($tipoProduto as $key=>$tp) {
             if(empty($tp)) {
@@ -120,6 +119,18 @@ class TiposProdutoDAO {
             return $tipoProduto;
         } else {
             return "Não foi encontrado";
+        }
+    }
+    
+    public function excluir($id) {
+        $sql = "DELETE FROM tipo_produto WHERE id = {$id}";
+        
+        $retorno = pg_query($sql);
+        
+        if($retorno) {
+            return true;
+        } else {
+            return false;
         }
     }
 

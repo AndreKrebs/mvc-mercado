@@ -9,6 +9,6 @@ html, body {
 }
 
 .bottom-pagination {
-    position: absolute; 
+    position: fixed !important; 
     bottom: 10px;
 }

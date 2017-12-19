@@ -2,7 +2,7 @@
 
 class Pagination {
 
-    public $recordsPerPage = 1;
+    public $recordsPerPage = 10;
 
 
 }

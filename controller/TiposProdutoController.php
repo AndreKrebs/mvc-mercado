@@ -79,4 +79,22 @@ class TiposProdutoController {
         header("Location: ".$url);
         
     }
+    
+    public function excluir() {
+        if(@$_GET) {
+            if(array_key_exists('id', $_GET)){
+                $id = $_GET['id'];
+                
+                $model = new TPModel();
+                
+                $mensagem = $model->excluir($id);
+                
+                $url = HOST_APPLICATION."/tipos-produto.php";
+
+                $_SESSION['mensagem'] = $mensagem;
+
+                header("Location: ".$url);
+            }
+        }
+    }
 }

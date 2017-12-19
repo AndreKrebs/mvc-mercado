@@ -2,8 +2,6 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 include 'configs/config.php';
-//include 'configs/pagination.php';
-//include 'controller/tipos-produto.controller.php';;
 
 use controller\TiposProdutoController;
 use configs\Pagination;
@@ -32,7 +30,7 @@ $tiposProduto = new TiposProdutoController();
                     <li><a href="index.php">Início</a></li>
                     <li><a href="compras.php">Nova Compra</a></li>
                     <li><a href="produtos.php">Produtos</a></li>
-                    <li class="active"><a href="tipos-produto.php" >Tipos de produto</a></li>
+                    <li class="active"><a href="<?=HOST_APPLICATION?>/tipos-produto.php" >Tipos de produto</a></li>
                 </ul>
             </div>
         </nav>
@@ -53,15 +51,18 @@ $tiposProduto = new TiposProdutoController();
             <?php
             endif;
             ?>
-
-            <table class="table">
+            <div>
+            
+            <button type="button" class="btn btn-success" onclick="location.href='<?=HOST_APPLICATION?>/view/tipos-produto/form.php'">Cadastrar novo</button>
+            
+            <table class="table" style="margin-bottom: 35px;">
                 <thead>
                     <tr>
                         <th>Código</th>
                         <th>Descrição</th>
                         <th>Tipo</th>
                         <th>Imposto(%)</th>
-                        <th></th>
+                        <th>Ação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,6 +88,7 @@ $tiposProduto = new TiposProdutoController();
                             echo "<td>{$item['imposto']}</td>";
                             echo "<td>";
                             echo "<button type=\"button\" class=\"btn btn-primary\" onclick=\"location.href='".HOST_APPLICATION."/view/tipos-produto/form.php?id={$item['id']}'\">Editar</button>";
+                            echo "<button type=\"button\" class=\"btn btn-danger\" style='margin-left: 10px;' onclick=\"location.href='".HOST_APPLICATION."/view/tipos-produto/excluir.php?id={$item['id']}'\">Excluir</button>";
                             echo "</td>";
                             echo "</tr>";
                         }
@@ -103,7 +105,8 @@ $tiposProduto = new TiposProdutoController();
             ?>
             <ul class="pagination bottom-pagination">
                 <?php
-                $totalPaginas = (int)($totalRegistros/$totalPorPagina);
+                // arredonda valor para valor maior
+                $totalPaginas = ceil($totalRegistros/$totalPorPagina);
                 if($totalPaginas>0):
                     for($i=0; $i<$totalPaginas; $i++):
                     ?>
@@ -117,6 +120,7 @@ $tiposProduto = new TiposProdutoController();
                 endif;
                 ?>
             </ul>
+            </div>
         </div>
 
     </body>

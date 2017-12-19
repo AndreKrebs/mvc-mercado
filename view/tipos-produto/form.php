@@ -35,7 +35,7 @@ $salvo = $tiposProdutoCtrl->adicionarSalvar();
                     <li><a href="index.php">Início</a></li>
                     <li><a href="compras.php">Nova Compra</a></li>
                     <li><a href="produtos.php">Produtos</a></li>
-                    <li class="active"><a href="tipos-produto.php" >Tipos de produto</a></li>
+                    <li class="active"><a href="<?=HOST_APPLICATION?>/tipos-produto.php" >Tipos de produto</a></li>
                 </ul>
             </div>
         </nav>
