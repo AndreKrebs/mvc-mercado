@@ -9,6 +9,7 @@ use controller\TiposProdutoController;
 use configs\Pagination;
 
 $tiposProduto = new TiposProdutoController();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,6 +38,21 @@ $tiposProduto = new TiposProdutoController();
         </nav>
         <div class="container fill" style="position: relative;">
             <h3>Tipos de produto </h3>
+            
+            <?php 
+            if(is_array($tiposProduto->mensagem) && $tiposProduto->mensagem['type']=='ERROR'): ?>
+                <div class="alert alert-warning">
+                    <strong>Erro! </strong><?=$tiposProduto->mensagem['mensagem']?> 
+                </div>
+            <?php
+            endif;
+            if(is_array($tiposProduto->mensagem) && $tiposProduto->mensagem['type']=='SUCCESS'): ?>
+                <div class="alert alert-success">
+                    <strong>Sucesso!</strong> <?=$tiposProduto->mensagem['mensagem']?>.
+                </div>
+            <?php
+            endif;
+            ?>
 
             <table class="table">
                 <thead>

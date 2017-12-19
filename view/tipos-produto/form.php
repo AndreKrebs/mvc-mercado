@@ -42,21 +42,6 @@ $salvo = $tiposProdutoCtrl->adicionarSalvar();
         <div class="container fill" style="position: relative;">
             <h3>Formulário Tipo de Produto </h3>
             
-            <?php 
-            if(!is_array($tipoProduto) && is_string($tipoProduto)): ?>
-                <div class="alert alert-warning">
-                    <strong>Atenção! </strong><?=$tipoProduto?> 
-                </div>
-            <?php
-            endif;
-            if($salvo): ?>
-                <div class="alert alert-warning">
-                    <strong>Atenção! </strong><?=$tipoProduto?> 
-                </div>
-            <?php
-            endif;
-            ?>
-            
             <form method="post">
                 <input type="hidden" class="form-control" name="id" id="id" value="<?=(is_array($tipoProduto)?$tipoProduto['id']:'')?>">
                 <div class="form-group">

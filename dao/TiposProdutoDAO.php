@@ -6,7 +6,7 @@ class TiposProdutoDAO {
 
     public function lista($itensPorPagina, $currentPage) {
 
-        $query = "SELECT * FROM tipo_produto ";
+        $query = "SELECT * FROM tipo_produto ORDER BY id ";
         
         // paginação se maior que zero
         if($itensPorPagina>0) {
@@ -76,13 +76,7 @@ class TiposProdutoDAO {
         
         $sql .= $campos . $valores;
         $resultado = pg_query($sql);
-        echo $sql;
-        var_dump(pg_fetch_row($resultado));
-        print_r(pg_last_oid(pg_affected_rows($resultado)));
         
-//        $tipoProduto2 = pg_fetch_array($resultado, null, PGSQL_ASSOC);
-//        echo "---->";
-//        print_r(pg_last_oid($resultado));
         return $resultado;
         
     }

@@ -47,9 +47,9 @@ class TiposProdutoModel {
         $retorno = $dao->novoRegistro($tipoProduto);
         
         if ($retorno) {
-            return "Cadastro de Tipo de Produto realizado";
+            return array("mensagem"=>"Cadastro de Tipo de Produto realizadoo","type"=>"SUCCESS");
         } else {
-            return "Falha ao tentar cadastrar Tipo de Produto";
+            return array("mensagem"=>"Falha ao tentar cadastrar Tipo de Produto","type"=>"ERROR");
         }
     }
     
@@ -58,11 +58,10 @@ class TiposProdutoModel {
         $dao = new TPDAO();
         
         $retorno = $dao->atualizaRegistro($tipoProduto);
-        print_r($retorno);
         if ($retorno) {
-            return "Cadastro de Tipo de Produto atualizado";
+            return array("mensagem"=>"Cadastro de Tipo de Produto atualizado","type"=>"SUCCESS");
         } else {
-            return "Falha ao tentar atualizar Tipo de Produto";
+            return array("mensagem"=>"Falha ao tentar atualizar Tipo de Produto","type"=>"ERROR");
         }
         
     }

@@ -5,10 +5,16 @@ use model\TiposProdutoModel as TPModel;
 class TiposProdutoController {
     
     public $currentPage = 0;
+    public $mensagem;
     
     public function __construct() {
         if(array_key_exists('pg', $_GET)){
             $this->currentPage = $_GET['pg'];
+        }
+        // se a pagina recebeu nova mensagem
+        $this->mensagem = "";
+        if(array_key_exists('mensagem', $_SESSION)){
+            $this->mensagem = $_SESSION['mensagem'];
         }
     }
     
@@ -29,9 +35,11 @@ class TiposProdutoController {
             $model = new TPModel();
             
             if($tipoProduto['id']>0) { // update
-                return $model->atualizaRegistro($tipoProduto);
+                $mensagem = $model->atualizaRegistro($tipoProduto);
+                $this->redirectList($mensagem);
             } else { // novo registro
-                return $model->novoRegistro($tipoProduto);
+                $mensagem = $model->novoRegistro($tipoProduto);
+                $this->redirectList($mensagem);
             }
         }
         
@@ -61,4 +69,13 @@ class TiposProdutoController {
         return $total;
     }
     
+    private function redirectList($mensagem) {
+        
+        $url = HOST_APPLICATION."/tipos-produto.php";
+
+        $_SESSION['mensagem'] = $mensagem;
+
+        header("Location: ".$url);
+        
+    }
 }
