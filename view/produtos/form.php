@@ -36,8 +36,8 @@ $salvo = $produtoCtrl->adicionarSalvar();
                 <ul class="nav navbar-nav">
                     <li><a href="<?=HOST_APPLICATION?>">Início</a></li>
                     <li><a href="compras.php">Nova Compra</a></li>
-                    <li><a href="produtos.php">Produtos</a></li>
-                    <li class="active"><a href="<?=HOST_APPLICATION?>/produtos.php" >Tipos de produto</a></li>
+                    <li class="active"><a href="<?=HOST_APPLICATION?>/produtos.php">Produtos</a></li>
+                    <li><a href="<?=HOST_APPLICATION?>/produtos.php" >Tipos de produto</a></li>
                 </ul>
             </div>
         </nav>
@@ -59,7 +59,7 @@ $salvo = $produtoCtrl->adicionarSalvar();
                         
                             $listaTiposProduto = $tiposProdutoCtrl->lista(-1);
                             foreach($listaTiposProduto as $tipo) {
-                                echo "<option value=\"{$tipo['id']}\">{$tipo['tipo']}</option>";
+                                echo "<option value=\"{$tipo['id']}\" ".(is_array($produto)?($produto['tipo_produto_id']==$tipo['id']?'selected':''):'')." >{$tipo['tipo']}</option>";
                             }
                         ?>
                     </select>

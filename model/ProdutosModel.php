@@ -1,7 +1,7 @@
 <?php namespace model;
 
 use configs\Database as DB;
-use dao\ProdutosDAO as TPDAO;
+use dao\ProdutosDAO as PDAO;
 
 class ProdutosModel {
     
@@ -14,7 +14,7 @@ class ProdutosModel {
     
     public function lista($itensPorPagina, $currentPage) {
         
-        $dao = new TPDAO();
+        $dao = new PDAO();
         
         $lista = $dao->lista($itensPorPagina, $currentPage);
         
@@ -29,7 +29,7 @@ class ProdutosModel {
     
     public function totalRegistros() {
         
-        $dao = new TPDAO();
+        $dao = new PDAO();
         
         $total = $dao->totalRegistros();
         
@@ -42,7 +42,7 @@ class ProdutosModel {
     
     public function novoRegistro($produto) {
         
-        $dao = new TPDAO();
+        $dao = new PDAO();
         
         $retorno = $dao->novoRegistro($produto);
         
@@ -55,7 +55,7 @@ class ProdutosModel {
     
     public function atualizaRegistro($produto) {
         
-        $dao = new TPDAO();
+        $dao = new PDAO();
         
         $retorno = $dao->atualizaRegistro($produto);
         if ($retorno) {
@@ -68,7 +68,7 @@ class ProdutosModel {
     
     public function buscaRegistro($id) {
         
-        $dao = new TPDAO();
+        $dao = new PDAO();
         
         $produto = $dao->buscaRegistro($id);
 
@@ -77,7 +77,7 @@ class ProdutosModel {
     
     public function excluir($id) {
         if($id>0) {
-            $dao = new TPDAO();
+            $dao = new PDAO();
             
             $retorno = $dao->excluir($id);
             

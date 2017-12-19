@@ -4,8 +4,8 @@ error_reporting(E_ALL);
 
 include '../../configs/config.php';
 
-use controller\TiposProdutoController;
+use controller\ProdutosController;
 
-$tiposProduto = new TiposProdutoController();
+$produtos = new ProdutosController();
 
-$tiposProduto->excluir();
+$produtos->excluir();

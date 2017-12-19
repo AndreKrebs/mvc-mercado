@@ -1,6 +1,6 @@
 <?php namespace controller;
 
-use model\ProdutosModel as TPModel;
+use model\ProdutosModel as PModel;
 
 class ProdutosController {
     
@@ -22,7 +22,7 @@ class ProdutosController {
     public function lista($itensPorPagina=0) {
         $produtos = [];
         
-        $model = new TPModel();
+        $model = new PModel();
         
         $produtos = $model->lista($itensPorPagina, $this->currentPage);
         
@@ -33,7 +33,7 @@ class ProdutosController {
         
         if($_POST) {
             $produto = $_POST;
-            $model = new TPModel();
+            $model = new PModel();
             
             if($produto['id']>0) { // update
                 $mensagem = $model->atualizaRegistro($produto);
@@ -50,7 +50,7 @@ class ProdutosController {
         if(@$_GET) {
             if(array_key_exists('id', $_GET)) {
                 if($_GET['id']>0) {
-                    $model = new TPModel();
+                    $model = new PModel();
 
                     $produto = $model->buscaRegistro($_GET['id']);
 
@@ -63,7 +63,7 @@ class ProdutosController {
     }
     
     public function totalRegistros() {
-        $model = new TPModel();
+        $model = new PModel();
         
         $total = $model->totalRegistros();
         
@@ -85,7 +85,7 @@ class ProdutosController {
             if(array_key_exists('id', $_GET)){
                 $id = $_GET['id'];
                 
-                $model = new TPModel();
+                $model = new PModel();
                 
                 $mensagem = $model->excluir($id);
                 
