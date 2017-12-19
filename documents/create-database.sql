@@ -35,14 +35,16 @@ CREATE TABLE tipo_produto (
 
 CREATE TABLE compra (
 	id 	bigint unique not null primary key,
-	total decimal(10, 2) not null
+	total decimal(10, 2) not null,
+        total_imposto decimal(5,2) not null
 );
 
 CREATE TABLE compra_produto (
 	id 	bigint unique not null primary key,
 	compra_id bigint not null,
 	produto_id bigint not null,
-	total decimal(10, 2) not null
+	total decimal(10, 2) not null,
+        total_imposto decimal(5,2) not null
 );
 
 
