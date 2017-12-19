@@ -70,8 +70,14 @@ $tiposProduto = new TiposProdutoController();
                     $totalPorPagina = $paginacao->recordsPerPage;
                     
                     $lista = $tiposProduto->lista($totalPorPagina);
-
-                    if (is_array($lista)) {
+                    
+                    // alerta se retornou string
+                    if(is_string($lista)) { ?>
+                        <div class="alert alert-warning">
+                            <strong>Erro! </strong><?=$lista?> 
+                        </div>
+                    <?php
+                    } else if (is_array($lista)) {
                         foreach ($lista as $item) {
                             echo "<tr>";
                             echo "<td>{$item['id']}</td>";

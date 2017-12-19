@@ -15,6 +15,7 @@ class TiposProdutoController {
         $this->mensagem = "";
         if(array_key_exists('mensagem', $_SESSION)){
             $this->mensagem = $_SESSION['mensagem'];
+            $_SESSION['mensagem'] = null;
         }
     }
     
