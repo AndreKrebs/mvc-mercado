@@ -12,7 +12,7 @@ $compraId = $compraCtrl->addCompra();
 if($compraId>0) {
     $compraProdutoArray = $produtoCompraCtrl->addItemCompra($compraId);
     
-    print_r($compraProdutoArray);
+    echo json_encode($compraProdutoArray);
 } else {
     echo -1;
 }

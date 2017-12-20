@@ -74,12 +74,10 @@ $salvo = $produtoCtrl->adicionarSalvar();
                         <th>Quantidade</th>
                         <th>Total</th>
                         <th>Imposto</th>
+                        <th>Ação</th>
                     </tr>
                 </thead>
                 <tbody id="itens-compra">
-                    <tr id="cod-compra-prod">
-                        
-                    </tr>
                 </tbody>
             </table>
 
@@ -151,19 +149,76 @@ $salvo = $produtoCtrl->adicionarSalvar();
                     itemSelecionado.compraId = (idCompra>0?idCompra:0);
                     // adiciona valor de quantidade
                     itemSelecionado.quantidade = quantidade;
+                    // atualiza o valor unitário pelo quantidade de itens
+                    itemSelecionado.value = itemSelecionado.value*quantidade;
                     
+                    // grava os dados no banco de dados
                     $.ajax({
                         type: "POST",
                         url: "add-item-compra.php", 
-                        data: itemSelecionado, //encodeURIComponent(stringData),
+                        data: itemSelecionado, 
+//                        dataType: 'json',                        
                         success: function(result){ // retorna o id da compra
-                            console.log(result);
+                            var retorno = JSON.parse(result);
+                            
+                            if(typeof retorno == 'object') {
+                                
+                                if(itemSelecionado.compraId === 0) {
+                                    itemSelecionado.compraId = retorno.compraId;
+                                }
+                                itemSelecionado.produtoCompraId = retorno.produtoCompraId;
+                                
+                                // monta tr
+                                adicionaItemTabela(itemSelecionado);
+                                
+                            } else {
+                                alert("ERRO: não foi possivel adicionar o item na compra.");
+                            }
                         }
                     });
                 }
                 
                 return false;
             }
+            
+            function adicionaItemTabela(novoItem) {
+                var itemTr = montaTr(novoItem);
+                var tabela = document.querySelector("#itens-compra");
+                tabela.appendChild(itemTr);
+            }
+            
+            function montaTr(novoItem) {
+                var itemTr = document.createElement("tr");
+                itemTr.classList.add("item-compra-"+novoItem.produtoCompraId);
+
+                itemTr.appendChild(montaTd(novoItem.produtoCompraId));
+                itemTr.appendChild(montaTd(novoItem.label));
+                itemTr.appendChild(montaTd(novoItem.value/novoItem.quantidade));
+                itemTr.appendChild(montaTd(novoItem.quantidade));
+                itemTr.appendChild(montaTd(novoItem.value));
+                itemTr.appendChild(montaTd((novoItem.value*novoItem.percent)/100));
+                
+                // adiciona botao
+                itemTr.appendChild(montaTdBotao(novoItem.produtoCompraId));
+
+                return itemTr;
+            }
+            
+            function montaTd(dado) {
+                var td = document.createElement("td");
+                td.textContent = dado;
+
+                return td;
+            }
+            
+            function montaTdBotao(dado) {
+                var td = document.createElement("td");
+                
+                td.innerHTML = "<button class=\"btn btn-warning\" onclick=\"removeItem("+dado+")\">Excluir</button>";
+                
+                return td;
+            }
+            
         </script>
     </body>
 </html>

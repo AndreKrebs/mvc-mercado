@@ -8,10 +8,9 @@ class ProdutosCompraDAO {
 
         // monta o insert
         $sql = "INSERT INTO compra_produto(compra_id, produto_id, quantidade, total, total_imposto) VALUES";
-        $values = "(";
-        
         $imposto = ($itemCompra['value']*$itemCompra['percent'])/100;
         
+        $values = "(";
         $values .= "{$compraid},";
         $values .= "{$itemCompra['id']},";
         $values .= "{$itemCompra['quantidade']},";
