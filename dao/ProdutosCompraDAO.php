@@ -4,32 +4,34 @@ namespace dao;
 
 class ProdutosCompraDAO {
 
-    public function lista($itensPorPagina, $currentPage) {
+    public function addProdutoCompra($itemCompra, $compraid) {
 
-        $query = "SELECT p.*, tp.tipo FROM compra p"
-                . " INNER JOIN tipo_compra tp ON tp.id=p.tipo_compra_id"
-                . " ORDER BY p.id ";
+        // monta o insert
+        $sql = "INSERT INTO compra_produto(compra_id, produto_id, quantidade, total, total_imposto) VALUES";
+        $values = "(";
         
-        // paginação se maior que zero
-        if($itensPorPagina>0) {
-            $query .= " LIMIT {$itensPorPagina} OFFSET ". (int)($currentPage*$itensPorPagina);
-        }
+        $imposto = ($itemCompra['value']*$itemCompra['percent'])/100;
         
-        $result = pg_query($query);
-        $lista = array();
-            
-        if (!$result) {
-            return -1;
-        }
-        if (pg_num_rows($result) == 0) {
-            return 0;
-        } else {
-            while ($row = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-                $lista[] = $row;
-            }
-        }
+        $values .= "{$compraid},";
+        $values .= "{$itemCompra['id']},";
+        $values .= "{$itemCompra['quantidade']},";
+        $values .= "{$itemCompra['value']},";
+        $values .= "{$imposto}";
+        $values .= ") ";
         
-        return $lista;
+        
+        $sql .= $values . " RETURNING id ";
+        
+        $retorno = pg_query($sql);
+        
+        if ($retorno == false) {    
+            die( pg_last_error() );
+        } 
+        
+        $lastId = pg_fetch_array($retorno, null, PGSQL_ASSOC);
+        
+        return $lastId['id'];
+        
     }
     
     

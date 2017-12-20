@@ -1,9 +1,9 @@
 <?php namespace model;
 
 use configs\Database as DB;
-use dao\ComprasDAO as CDAO;
+use dao\ProdutosCompraDAO as PCDAO;
 
-class ComprasModel {
+class ProdutosCompraModel {
     
     private $conexao;
     
@@ -12,9 +12,11 @@ class ComprasModel {
         $this->conexao = new DB(); 
     }
     
-    public function addProdutoCompra($itemCompra) {
+    public function addProdutoCompra($itemCompra, $compraid) {
      
+        $dao = new PCDAO();
         
+        return $dao->addProdutoCompra($itemCompra, $compraid);
         
     }
     

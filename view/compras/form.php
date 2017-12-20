@@ -146,8 +146,11 @@ $salvo = $produtoCtrl->adicionarSalvar();
                     
                     
                     var idCompra = $("#id").val();
+                    var quantidade = $("#quantidade").val();
                     // informa id da compra ou zero 
                     itemSelecionado.compraId = (idCompra>0?idCompra:0);
+                    // adiciona valor de quantidade
+                    itemSelecionado.quantidade = quantidade;
                     
                     $.ajax({
                         type: "POST",

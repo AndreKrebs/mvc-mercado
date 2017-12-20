@@ -16,6 +16,12 @@ CREATE SEQUENCE compra_pk_seq
 	NO MAXVALUE
 	CACHE 1;
 
+CREATE SEQUENCE compra_produto_pk_seq 
+	START 1
+	INCREMENT 1
+	NO MAXVALUE
+	CACHE 1;
+
 CREATE TABLE produto (
 	id 	bigint unique not null primary key,
 	tipo_produto_id bigint not null,
@@ -43,6 +49,7 @@ CREATE TABLE compra_produto (
 	id 	bigint unique not null primary key,
 	compra_id bigint not null,
 	produto_id bigint not null,
+        quantidade int not null,
 	total decimal(10, 2) not null,
         total_imposto decimal(5,2) not null
 );
@@ -51,6 +58,7 @@ CREATE TABLE compra_produto (
 ALTER TABLE produto ALTER COLUMN id SET DEFAULT nextval('produto_pk_seq'::regclass);
 ALTER TABLE tipo_produto ALTER COLUMN id SET DEFAULT nextval('tipo_produto_pk_seq'::regclass);
 ALTER TABLE compra ALTER COLUMN id SET DEFAULT nextval('compra_pk_seq'::regclass);
+ALTER TABLE compra_produto ALTER COLUMN id SET DEFAULT nextval('compra_produto_pk_seq'::regclass);
 
 ALTER TABLE produto 
    ADD CONSTRAINT fk_produto_tipo_produto
