@@ -45,18 +45,51 @@ $salvo = $produtoCtrl->adicionarSalvar();
             </div>
         </nav>
         <div class="container fill" style="position: relative;">
+            
+            <input type="hidden" id="id" name="id">
+            
             <h3>Nova Compra</h3>
-
-            <div class="ui-widget">
-                <label for="produtos">Produtos: </label>
-                <input id="produtos" size="50">
-            </div>
+            
+            <form class="form-inline" onsubmit="adicionaProdutoLista(); return false;">
+                
+                <div class="form-group ui-widget">
+                    <label for="produtos">Produtos: </label>
+                    <input id="produtos" class="form-control" size="20">
+                </div>
+                <div class="form-group">
+                    <label for="quantidade">Quantidade:</label>
+                    <input type="quantidade" class="form-control" id="quantidade" value="1" size="5">
+                </div>
+                <button type="submit" class="btn btn-default">Adicionar</button>
+            </form>
+            
+            <h2>Itens da compra</h2>
+            
+            <table class="table" >
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Produto</th>
+                        <th>Valor unidade</th>
+                        <th>Quantidade</th>
+                        <th>Total</th>
+                        <th>Imposto</th>
+                    </tr>
+                </thead>
+                <tbody id="itens-compra">
+                    <tr id="cod-compra-prod">
+                        
+                    </tr>
+                </tbody>
+            </table>
 
         </div>
 
         <script src="../../content/js/jquery/jquery-1.12.4.js"></script>
         <script src="../../content/js/jqueryui/jquery-ui.min.js"></script>
         <script>
+            var itemSelecionado = {};
+            
             $(function () {
                 function split(val) {
                     return val.split(/,\s*/);
@@ -81,7 +114,6 @@ $salvo = $produtoCtrl->adicionarSalvar();
                     },
                     search: function () {
                         // custom minLength
-                        console.log(this.value);
                         var term = extractLast(this.value);
 //                        if (term.length < 2) {
 //                            return false;
@@ -92,18 +124,43 @@ $salvo = $produtoCtrl->adicionarSalvar();
                         return false;
                     },
                     select: function (event, ui) {
-                        var terms = split(this.value);
-                        // remove the current input
-                        terms.pop();
-                        // add the selected item
-                        terms.push(ui.item.value);
-                        // add placeholder to get the comma-and-space at the end
-                        terms.push("");
-                        this.value = terms.join(", ");
+                        itemSelecionado = {};
+                        
+                        this.value = ui.item.label;
+                                                
+                        itemSelecionado = {id:ui.item.id, label: ui.item.label, value:ui.item.value, percent: ui.item.percent};
+                                         
+                        $("#quantidade").focus();
+                                         
                         return false;
                     }
                 });
             });
+            
+            function adicionaProdutoLista() {
+                
+                if(itemSelecionado.id>0) {
+                    
+                    var cont = 0;
+                    var stringData = "";
+                    
+                    
+                    var idCompra = $("#id").val();
+                    // informa id da compra ou zero 
+                    itemSelecionado.compraId = (idCompra>0?idCompra:0);
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "add-item-compra.php", 
+                        data: itemSelecionado, //encodeURIComponent(stringData),
+                        success: function(result){ // retorna o id da compra
+                            console.log(result);
+                        }
+                    });
+                }
+                
+                return false;
+            }
         </script>
     </body>
 </html>

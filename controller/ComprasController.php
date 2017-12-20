@@ -97,4 +97,19 @@ class ComprasController {
             }
         }
     }
+    
+    public function addCompra() {
+        if(@$_POST) {
+            if(is_array($_POST)) {
+                $itemCompra = $_POST;
+                
+                $model = new CModel();
+                
+                $compraId = $model->addCompra($itemCompra);
+                
+                
+                return $compraId;
+            }
+        }
+    }
 }

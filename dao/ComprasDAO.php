@@ -136,4 +136,20 @@ class ComprasDAO {
         }
     }
 
+    public function addCompra() {
+        
+        $sql = "INSERT INTO compra(total, total_imposto) VALUES(0.00, 0.00) RETURNING id";
+    
+        $retorno = pg_query($sql);
+        
+        if ($retorno == false) {    
+            die( pg_last_error() );
+        } 
+        
+        $lastId = pg_fetch_array($retorno, null, PGSQL_ASSOC);
+        
+        return $lastId['id'];
+        
+    }
+    
 }

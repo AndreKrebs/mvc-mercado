@@ -89,6 +89,19 @@ class ComprasModel {
         }
     }
     
+    public function addCompra($itemCompra) {
+        
+        $idCompra = $itemCompra['compraId'];
+        
+        if($idCompra==0) {
+            // adiciona nova compra
+            $dao = new CDAO();
+            
+            return $dao->addCompra($this->conexao);
+        }
+        
+    }
+    
 }
 
 
