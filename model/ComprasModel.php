@@ -97,11 +97,26 @@ class ComprasModel {
             // adiciona nova compra
             $dao = new CDAO();
             
-            return $dao->addCompra($this->conexao);
+            return $dao->addCompra();
         } else {
             return $idCompra;
         }
         
+    }
+    
+    public function concluirCompra($compra) {
+        if($compra['id']>0) {
+            // adiciona nova compra
+            $dao = new CDAO();
+            
+            if($dao->concluirCompra($compra)==true) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
     
 }

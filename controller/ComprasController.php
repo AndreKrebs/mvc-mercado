@@ -112,4 +112,18 @@ class ComprasController {
             }
         }
     }
+    
+    public function concluirCompra() {
+        if(@$_POST) {
+            if(is_array($_POST)) {
+                $compra = $_POST;
+                
+                $model = new CModel();
+                
+                $retorno = $model->concluirCompra($compra);
+                                
+                return $retorno;
+            }
+        }
+    }
 }

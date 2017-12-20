@@ -91,12 +91,14 @@ $salvo = $produtoCtrl->adicionarSalvar();
                 </tfoot>
             </table>
 
+            <button class="btn btn-success" onclick="concluirCompra()">Concluir compra</button>
         </div>
 
         <script src="../../content/js/jquery/jquery-1.12.4.js"></script>
         <script src="../../content/js/jqueryui/jquery-ui.min.js"></script>
         <script>
             var itemSelecionado = {};
+            var somaTotaisImpostos = 0, somaTotais = 0;
             
             $(function () {
                 function split(val) {
@@ -266,11 +268,13 @@ $salvo = $produtoCtrl->adicionarSalvar();
                 
                 var totais = document.getElementsByClassName("valortotal");
                 var totaisImpostos = document.getElementsByClassName("valortotalimposto");
-                var somaTotais = 0, somaTotaisImpostos = 0;
+                somaTotaisImpostos = 0;
+                somaTotais = 0;
                 
                 $.each(totais, function(index, value){
                     somaTotais += parseFloat(value.innerHTML);
                 });
+                
                 $.each(totaisImpostos, function(index, value){
                     somaTotaisImpostos += parseFloat(value.innerHTML);
                 });
@@ -279,6 +283,35 @@ $salvo = $produtoCtrl->adicionarSalvar();
                 $("#valor-total").html("R$ "+somaTotais);
                 
                 
+            }
+            
+            function concluirCompra() {
+                var idCompra = $("#id").val();
+                
+                if(confirm("Deseja concluir a compra, ela não podera ser editada posteriormente ?")){
+                    if(idCompra > 0) {
+                        $.ajax({
+                            type: "POST",
+                            url: "concluir-compra.php", 
+                            data: {id: idCompra, total: somaTotais, totalImposto:somaTotaisImpostos}, 
+                            success: function(result){ 
+                                var retorno = JSON.parse(result);
+
+                                if(retorno.result === true) {
+                                    window.location  = "../../compras.php";
+                                } else {
+                                    alert("ERRO: não foi possivel concluir a compra");
+                                }
+                            },
+                            error: function() {
+                                alert("ERRO: não foi possivel concluir a compra");
+                            }
+                        });
+                    } else {
+                        // se a compra não foi registrada no BD, só direciona
+                        window.location  = "../../compras.php";
+                    }
+                }
             }
             
         </script>

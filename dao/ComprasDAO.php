@@ -152,4 +152,16 @@ class ComprasDAO {
         
     }
     
+    public function concluirCompra($compra) {
+        $sql = "UPDATE compra SET total={$compra['total']}, total_imposto={$compra['totalImposto']}, fechada=true WHERE id={$compra['id']}";
+    
+        $retorno = pg_query($sql);
+        
+        if ($retorno == false) {    
+            die( pg_last_error() );
+        }
+        
+        return true;
+    }
+    
 }
