@@ -33,5 +33,16 @@ class ProdutosCompraDAO {
         
     }
     
+    public function removeItemCompra($id) {
+        $sql = "DELETE FROM compra_produto WHERE id = {$id}";
+        
+        $retorno = pg_query($sql);
+        
+        if ($retorno === false) {   
+            die( pg_last_error() );
+        }
+        return $retorno;
+    }
+    
     
 }

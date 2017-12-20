@@ -165,6 +165,7 @@ $salvo = $produtoCtrl->adicionarSalvar();
                                 
                                 if(itemSelecionado.compraId === 0) {
                                     itemSelecionado.compraId = retorno.compraId;
+                                    $("#id").val(retorno.compraId);
                                 }
                                 itemSelecionado.produtoCompraId = retorno.produtoCompraId;
                                 
@@ -214,9 +215,28 @@ $salvo = $produtoCtrl->adicionarSalvar();
             function montaTdBotao(dado) {
                 var td = document.createElement("td");
                 
-                td.innerHTML = "<button class=\"btn btn-warning\" onclick=\"removeItem("+dado+")\">Excluir</button>";
+                td.innerHTML = "<button class=\"btn btn-warning btn-sm\" onclick=\"removeItem("+dado+")\">Excluir</button>";
                 
                 return td;
+            }
+            
+            function removeItem(itemId) {
+                if(itemId>0) {
+                    $.ajax({
+                        type: "GET",
+                        url: "remove-item-compra.php", 
+                        data: "id="+itemId, 
+                        success: function(result){ // retorna o id da compra
+                            var retorno = JSON.parse(result);
+                            
+                            if(retorno.result === true) {
+                                $(".item-compra-"+itemId).remove();                                
+                            } else {
+                                alert("ERRO: não foi possivel excluir o item");
+                            }
+                        }
+                    });
+                }
             }
             
         </script>

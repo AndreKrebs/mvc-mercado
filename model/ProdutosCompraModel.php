@@ -20,6 +20,18 @@ class ProdutosCompraModel {
         
     }
     
+    public function removeItemCompra($id) {
+        if($id > 0) {
+            $dao = new PCDAO();
+            
+            if($dao->removeItemCompra($id)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    
     
 }
 
