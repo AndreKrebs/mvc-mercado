@@ -98,6 +98,8 @@ class ComprasModel {
             $dao = new CDAO();
             
             return $dao->addCompra($this->conexao);
+        } else {
+            return $idCompra;
         }
         
     }

@@ -79,6 +79,16 @@ $salvo = $produtoCtrl->adicionarSalvar();
                 </thead>
                 <tbody id="itens-compra">
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <b>Total impostos: <span id="valor-total-impostos"></span> </b>
+                        </td>
+                        <td colspan="5">
+                            <b>Total da compra: <span id="valor-total"></span> </b>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
 
         </div>
@@ -161,6 +171,10 @@ $salvo = $produtoCtrl->adicionarSalvar();
                         success: function(result){ // retorna o id da compra
                             var retorno = JSON.parse(result);
                             
+                            // limpa os campos do form
+                            $("#produtos").val("");
+                            $("#quantidade").val(1);
+                            
                             if(typeof retorno == 'object') {
                                 
                                 if(itemSelecionado.compraId === 0) {
@@ -171,10 +185,16 @@ $salvo = $produtoCtrl->adicionarSalvar();
                                 
                                 // monta tr
                                 adicionaItemTabela(itemSelecionado);
-                                
+                                somaTotal();
                             } else {
                                 alert("ERRO: não foi possivel adicionar o item na compra.");
                             }
+                        }, 
+                        error: function() {
+                            alert("ERRO: ocorreu uma falha na requisição.");
+                            // limpa os campos do form
+                            $("#produtos").val("");
+                            $("#quantidade").val(1);
                         }
                     });
                 }
@@ -194,10 +214,10 @@ $salvo = $produtoCtrl->adicionarSalvar();
 
                 itemTr.appendChild(montaTd(novoItem.produtoCompraId));
                 itemTr.appendChild(montaTd(novoItem.label));
-                itemTr.appendChild(montaTd(novoItem.value/novoItem.quantidade));
+                itemTr.appendChild(montaTd("R$ "+ (novoItem.value/novoItem.quantidade)));
                 itemTr.appendChild(montaTd(novoItem.quantidade));
-                itemTr.appendChild(montaTd(novoItem.value));
-                itemTr.appendChild(montaTd((novoItem.value*novoItem.percent)/100));
+                itemTr.appendChild(montaTd("R$ <span class='valortotal'>"+novoItem.value+"</span>"));
+                itemTr.appendChild(montaTd("R$ <span class='valortotalimposto'>"+((novoItem.value*novoItem.percent)/100)+"</span>"));
                 
                 // adiciona botao
                 itemTr.appendChild(montaTdBotao(novoItem.produtoCompraId));
@@ -207,7 +227,7 @@ $salvo = $produtoCtrl->adicionarSalvar();
             
             function montaTd(dado) {
                 var td = document.createElement("td");
-                td.textContent = dado;
+                td.innerHTML = dado;
 
                 return td;
             }
@@ -222,21 +242,43 @@ $salvo = $produtoCtrl->adicionarSalvar();
             
             function removeItem(itemId) {
                 if(itemId>0) {
-                    $.ajax({
-                        type: "GET",
-                        url: "remove-item-compra.php", 
-                        data: "id="+itemId, 
-                        success: function(result){ // retorna o id da compra
-                            var retorno = JSON.parse(result);
-                            
-                            if(retorno.result === true) {
-                                $(".item-compra-"+itemId).remove();                                
-                            } else {
-                                alert("ERRO: não foi possivel excluir o item");
+                    if(confirm("Deseja excluir o item ?")){
+                        $.ajax({
+                            type: "GET",
+                            url: "remove-item-compra.php", 
+                            data: "id="+itemId, 
+                            success: function(result){ // retorna o id da compra
+                                var retorno = JSON.parse(result);
+
+                                if(retorno.result === true) {
+                                    $(".item-compra-"+itemId).remove();      
+                                    somaTotal();
+                                } else {
+                                    alert("ERRO: não foi possivel excluir o item");
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
+            }
+            
+            function somaTotal() {
+                
+                var totais = document.getElementsByClassName("valortotal");
+                var totaisImpostos = document.getElementsByClassName("valortotalimposto");
+                var somaTotais = 0, somaTotaisImpostos = 0;
+                
+                $.each(totais, function(index, value){
+                    somaTotais += parseFloat(value.innerHTML);
+                });
+                $.each(totaisImpostos, function(index, value){
+                    somaTotaisImpostos += parseFloat(value.innerHTML);
+                });
+
+                $("#valor-total-impostos").html("R$ "+somaTotaisImpostos);
+                $("#valor-total").html("R$ "+somaTotais);
+                
+                
             }
             
         </script>
