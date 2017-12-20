@@ -83,9 +83,9 @@ $salvo = $produtoCtrl->adicionarSalvar();
                         // custom minLength
                         console.log(this.value);
                         var term = extractLast(this.value);
-                        if (term.length < 2) {
-                            return false;
-                        }
+//                        if (term.length < 2) {
+//                            return false;
+//                        }
                     },
                     focus: function () {
                         // prevent value inserted on focus

@@ -2,7 +2,6 @@
 
 use configs\Database as DB;
 use dao\ProdutosDAO as PDAO;
-use \ArrayObject;
 
 class ProdutosModel {
     

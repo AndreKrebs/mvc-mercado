@@ -147,10 +147,11 @@ class ProdutosDAO {
         $id = intval($item);
 
         if($id>0) {
-            $where .= "p.id={$item} OR ";
+            $where .= "p.id={$item} ";
+        } else {
+            $where .= " LOWER(p.nome) like LOWER('%{$item}%') ";
         }
         
-        $where .= " LOWER(p.nome) like LOWER('%{$item}%') ";
         
         $sql .= $where;
         
