@@ -97,4 +97,21 @@ class ProdutosController {
             }
         }
     }
+    
+    public function buscaAutocomplete() {
+        
+        if(is_array($_GET)){
+            if(array_key_exists('term', $_GET)){
+                $termo = $_GET['term'];
+                
+                $model = new PModel();
+                
+                $listaJson = $model->buscaAutocomplete($termo);
+                
+                return json_encode($listaJson);
+            }
+        }
+        // se não entrou no if
+        return new ArrayObject();
+    }
 }

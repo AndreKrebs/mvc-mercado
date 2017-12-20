@@ -136,4 +136,34 @@ class ProdutosDAO {
         }
     }
 
+    public function buscaAutocomplete($item) {
+        
+        $sql = "SELECT p.id, p.nome, p.preco, tp.imposto FROM produto p "
+                . " INNER JOIN tipo_produto tp ON tp.id=p.tipo_produto_id "
+                . " WHERE ";
+        $where = "";
+        
+        // transforma valor en int
+        $id = intval($item);
+
+        if($id>0) {
+            $where .= "p.id={$item} OR ";
+        }
+        
+        $where .= " LOWER(p.nome) like LOWER('%{$item}%') ";
+        
+        $sql .= $where;
+        
+        $result = pg_query($sql);
+        $lista = array();
+            
+        
+        while ($row = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+            $lista[] = $row;
+        }
+        
+        return $lista;
+        
+    }
+    
 }

@@ -2,6 +2,7 @@
 
 use configs\Database as DB;
 use dao\ProdutosDAO as PDAO;
+use \ArrayObject;
 
 class ProdutosModel {
     
@@ -89,7 +90,20 @@ class ProdutosModel {
         }
     }
     
+    public function buscaAutocomplete($item) {
+        
+        $dao = new PDAO();
+        
+        $lista = $dao->buscaAutocomplete($item);
+        
+        $listaJson = new \ArrayObject();
+        
+        foreach($lista as $item) {
+            $listaJson[] = array("id"=>$item['id'],"label"=>$item['nome'],"value"=>$item['preco'], "percent"=>$item['imposto']);
+        }
+        
+        return $listaJson;
+        
+    }
+    
 }
-
-
-

@@ -4,9 +4,11 @@ error_reporting(E_ALL);
 
 include '../../configs/config.php';
 
+use controller\ComprasController;
 use controller\ProdutosController;
 use controller\TiposProdutoController;
 
+$comprasCtrl = new ComprasController();
 $produtoCtrl = new ProdutosController();
 $tiposProdutoCtrl = new TiposProdutoController();
 
@@ -79,6 +81,7 @@ $salvo = $produtoCtrl->adicionarSalvar();
                     },
                     search: function () {
                         // custom minLength
+                        console.log(this.value);
                         var term = extractLast(this.value);
                         if (term.length < 2) {
                             return false;
