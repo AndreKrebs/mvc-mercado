@@ -25,7 +25,7 @@ include 'configs/config.php';
             </div>
         </nav>
         <div class="container">
-            <h3>Bem vindo ao sistema da SoftExpert</h3>
+            <h3>Bem vindo </h3>
         </div>
 
     </body>
