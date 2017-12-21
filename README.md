@@ -1,8 +1,8 @@
 # mvc-mercado
 
-#Configurações do sistema:
+# Configurações do sistema:
 
-##Banco de dados Postgresql 9.4:
+## Banco de dados Postgresql 9.4:
 
 É necessário criar o usuário, senha e base de dados conforme descrito abaixo para o sistema poder conectar.
 
@@ -12,7 +12,7 @@ Base de dados: mercado
 Arquivo de dump: documents/dump_database.sql
 Se desejar criar a base de dados sem dados: documents/create-database.sql
 
-Sistema:
+## Sistema:
 
 Caso seja necessário alterar as configurações de conexão com o banco de dados, basta alterar o arquivo configs/Database.php.
 
