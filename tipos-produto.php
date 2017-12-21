@@ -26,7 +26,7 @@ $tiposProduto = new TiposProdutoController();
                 </div>
                 <ul class="nav navbar-nav">
                     <li><a href="<?=HOST_APPLICATION?>">Início</a></li>
-                    <li><a href="compras.php">Nova Compra</a></li>
+                    <li><a href="<?=HOST_APPLICATION?>/compras.php">Nova Compra</a></li>
                     <li><a href="<?=HOST_APPLICATION?>/produtos.php">Produtos</a></li>
                     <li class="active"><a href="<?=HOST_APPLICATION?>/tipos-produto.php" >Tipos de produto</a></li>
                 </ul>

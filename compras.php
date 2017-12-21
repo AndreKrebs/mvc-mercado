@@ -51,7 +51,7 @@ $compras = new ComprasController();
             ?>
             <div>
             
-            <button type="button" class="btn btn-success" onclick="location.href='<?=HOST_APPLICATION?>/view/compras/form.php'">Cadastrar novo</button>
+            <button type="button" class="btn btn-success" onclick="location.href='<?=HOST_APPLICATION?>/view/compras/form.php'">Nova Compra</button>
             
             <table class="table" style="margin-bottom: 35px;">
                 <thead>
@@ -60,7 +60,6 @@ $compras = new ComprasController();
                         <th>Valor total</th>
                         <th>Fechada</th>
                         <th>Ação</th>
-                        <!--TODO: fazer a data-->
                     </tr>
                 </thead>
                 <tbody>

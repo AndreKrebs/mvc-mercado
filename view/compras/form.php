@@ -31,10 +31,10 @@ $compra = $compraCtrl->buscaRegistro();
                     <a class="navbar-brand" href="#">SoftExpert</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li><a href="<?= HOST_APPLICATION ?>">Início</a></li>
-                    <li class="active"><a href="<?= HOST_APPLICATION ?>/produtos.php">Nova Compra</a></li>
-                    <li><a href="<?= HOST_APPLICATION ?>/produtos.php">Produtos</a></li>
-                    <li><a href="<?= HOST_APPLICATION ?>/tipos-produto.php" >Tipos de produto</a></li>
+                    <li><a href="<?=HOST_APPLICATION?>">Início</a></li>
+                    <li class="active"><a href="<?=HOST_APPLICATION?>/compras.php">Nova Compra</a></li>
+                    <li><a href="<?=HOST_APPLICATION?>/produtos.php">Produtos</a></li>
+                    <li><a href="<?=HOST_APPLICATION?>/tipos-produto.php" >Tipos de produto</a></li>
                 </ul>
             </div>
         </nav>
@@ -48,7 +48,7 @@ $compra = $compraCtrl->buscaRegistro();
 
                     <div class="form-group ui-widget">
                         <label for="produtos">Produtos: </label>
-                        <input id="produtos" class="form-control" size="20">
+                        <input id="produtos" class="form-control" size="20" placeholder="Código ou nome do produto">
                     </div>
                     <div class="form-group">
                         <label for="quantidade">Quantidade:</label>
