@@ -26,7 +26,7 @@ $salvo = $tiposProdutoCtrl->adicionarSalvar();
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">SoftExpert</a>
+                    <a class="navbar-brand" href="#">Mercado</a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li><a href="<?=HOST_APPLICATION?>">Início</a></li>
