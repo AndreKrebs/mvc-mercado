@@ -28,7 +28,7 @@ CREATE TABLE produto (
 	nome character varying(60) not null,
 	preco decimal(10, 2) not null,
         produtor character varying(150) not null,
-        distribuidor character varying(150) not null,
+        distribuidor character varying(150) not null
 );
 
 

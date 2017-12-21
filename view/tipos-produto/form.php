@@ -54,7 +54,7 @@ $salvo = $tiposProdutoCtrl->adicionarSalvar();
                 </div>
                 <div class="form-group">
                     <label for="imposto">Imposto:</label>
-                    <input type="number" class="form-control" name="imposto" id="imposto" value="<?=(is_array($tipoProduto)?$tipoProduto['imposto']:'')?>">
+                    <input type="number" step="0.01" class="form-control" name="imposto" id="imposto" value="<?=(is_array($tipoProduto)?$tipoProduto['imposto']:'')?>">
                 </div>
                 <button type="submit" class="btn btn-default">Salvar</button>
             </form>

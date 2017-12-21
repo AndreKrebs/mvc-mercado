@@ -66,7 +66,7 @@ $salvo = $produtoCtrl->adicionarSalvar();
                 </div>
                 <div class="form-group">
                     <label for="descricao">Preço:</label>
-                    <input type="number" class="form-control" name="preco" id="preco" value="<?=(is_array($produto)?$produto['preco']:'')?>" required>
+                    <input type="number" step="0.01" class="form-control" name="preco" id="preco" value="<?=(is_array($produto)?$produto['preco']:'')?>" required>
                 </div>
                 <div class="form-group">
                     <label for="produtor">Produtor:</label>
