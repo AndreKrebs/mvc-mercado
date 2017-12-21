@@ -57,12 +57,10 @@ $compras = new ComprasController();
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Nome</th>
-                        <th>Tipo Produto</th>
-                        <th>Preço</th>
-                        <th>Produtor</th>
-                        <th>Distribuidor</th>
+                        <th>Valor total</th>
+                        <th>Fechada</th>
                         <th>Ação</th>
+                        <!--TODO: fazer a data-->
                     </tr>
                 </thead>
                 <tbody>
@@ -83,11 +81,8 @@ $compras = new ComprasController();
                         foreach ($lista as $item) {
                             echo "<tr>";
                             echo "<td>{$item['id']}</td>";
-                            echo "<td>{$item['nome']}</td>";
-                            echo "<td>{$item['tipo']}</td>";
-                            echo "<td>{$item['preco']}</td>";
-                            echo "<td>{$item['produtor']}</td>";
-                            echo "<td>{$item['distribuidor']}</td>";
+                            echo "<td>{$item['total']}</td>";
+                            echo "<td>".($item['fechada']=='t'?"Sim":"Não")."</td>";
                             echo "<td>";
                             echo "<button type=\"button\" class=\"btn btn-primary\" onclick=\"location.href='".HOST_APPLICATION."/view/compras/form.php?id={$item['id']}'\">Editar</button>";
                             echo "<button type=\"button\" class=\"btn btn-danger\" style='margin-left: 10px;' onclick=\"location.href='".HOST_APPLICATION."/view/compras/excluir.php?id={$item['id']}'\">Excluir</button>";

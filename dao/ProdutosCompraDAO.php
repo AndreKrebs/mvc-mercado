@@ -44,5 +44,26 @@ class ProdutosCompraDAO {
         return $retorno;
     }
     
+    public function buscaItensCompra($compraId) {
+        $lista = array();
+        
+        $sql = "SELECT cp.*, p.nome, p.preco FROM compra_produto cp "
+                . "INNER JOIN produto p ON p.id = cp.produto_id "
+                . "WHERE cp.compra_id = {$compraId} "
+                . "ORDER BY cp.id ASC ";
+                
+        $retorno = pg_query($sql);
+        
+        if ($retorno == false) {    
+            die( pg_last_error() );
+        } 
+        
+        while($row = pg_fetch_array($retorno, null, PGSQL_ASSOC)) {
+            $lista[] = $row;
+        }
+        
+        return $lista;
+        
+    }
     
 }

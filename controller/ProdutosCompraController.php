@@ -29,4 +29,12 @@ class ProdutosCompraController {
             }
         }
     }
+    
+    public function buscaItensCompra($compraId){
+        
+        $model = new PCModel();
+        
+        return $model->buscaItensCompra($compraId);
+        
+    }
 }

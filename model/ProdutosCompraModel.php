@@ -32,6 +32,13 @@ class ProdutosCompraModel {
         }
     }
     
+    public function buscaItensCompra($compraId) {
+        if($compraId>0) {
+            $dao = new PCDAO();
+            
+            return $dao->buscaItensCompra($compraId);
+        }
+    }    
     
 }
 

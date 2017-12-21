@@ -5,18 +5,12 @@ error_reporting(E_ALL);
 include '../../configs/config.php';
 
 use controller\ComprasController;
-use controller\ProdutosController;
-use controller\TiposProdutoController;
+use controller\ProdutosCompraController;
 
-$comprasCtrl = new ComprasController();
-$produtoCtrl = new ProdutosController();
-$tiposProdutoCtrl = new TiposProdutoController();
+$compraCtrl = new ComprasController();
+$produtosCompraCtrl = new ProdutosCompraController();
 
-// se vai editar um registro
-$produto = $produtoCtrl->buscaRegistro();
-
-// se submeter o form ele salva
-$salvo = $produtoCtrl->adicionarSalvar();
+$compra = $compraCtrl->buscaRegistro();
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,21 +41,23 @@ $salvo = $produtoCtrl->adicionarSalvar();
         <div class="container fill" style="position: relative;">
             
             <input type="hidden" id="id" name="id">
-            
-            <h3>Nova Compra</h3>
-            
-            <form class="form-inline" onsubmit="adicionaProdutoLista(); return false;">
-                
-                <div class="form-group ui-widget">
-                    <label for="produtos">Produtos: </label>
-                    <input id="produtos" class="form-control" size="20">
-                </div>
-                <div class="form-group">
-                    <label for="quantidade">Quantidade:</label>
-                    <input type="quantidade" class="form-control" id="quantidade" value="1" size="5">
-                </div>
-                <button type="submit" class="btn btn-default">Adicionar</button>
+            <div <?=($compra['fechada']=='t'?"style='display:none;'":"")?> >
+                <h3>Nova Compra</h3>
+
+                <form class="form-inline" onsubmit="adicionaProdutoLista(); return false;">
+
+                    <div class="form-group ui-widget">
+                        <label for="produtos">Produtos: </label>
+                        <input id="produtos" class="form-control" size="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="quantidade">Quantidade:</label>
+                        <input type="quantidade" class="form-control" id="quantidade" value="1" size="5">
+                    </div>
+                    <button type="submit" class="btn btn-default">Adicionar</button>
+                </form>
             </form>
+            </div>
             
             <h2>Itens da compra</h2>
             
@@ -78,20 +74,39 @@ $salvo = $produtoCtrl->adicionarSalvar();
                     </tr>
                 </thead>
                 <tbody id="itens-compra">
+                    
+                    <?php
+                    $listaItens = $produtosCompraCtrl->buscaItensCompra($compra['id']);
+                    if(is_array($listaItens) && count($listaItens)>0):
+                        foreach ($listaItens as $item): ?>
+                            <tr class="item-compra-<?=$item['id'] ?>">
+                                <td><?=$item['id'] ?></td>
+                                <td><?=$item['nome'] ?></td>
+                                <td>R$ <?=$item['preco'] ?></td>
+                                <td><?=$item['total'] ?></td>
+                                <td>R$ <span class="valortotal"><?=$item['total'] ?></span></td>
+                                <td>R$ <span class="valortotalimposto"><?=$item['total_imposto'] ?></span></td>
+                                <td><button class="btn btn-warning btn-sm" <?=($compra['fechada']=='t'?"style='display:none;'":"")?>  onclick="removeItem(<?=$item['id'] ?>)">Excluir</button></td>
+                            </tr>
+                        <?php
+                        endforeach;
+                    endif;
+                    ?>
+                    
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="2">
-                            <b>Total impostos: <span id="valor-total-impostos"></span> </b>
+                            <b>Total impostos: <span id="valor-total-impostos"><?=$compra['total_imposto'] ?></span> </b>
                         </td>
                         <td colspan="5">
-                            <b>Total da compra: <span id="valor-total"></span> </b>
+                            <b>Total da compra: <span id="valor-total"><?=$compra['total'] ?></span> </b>
                         </td>
                     </tr>
                 </tfoot>
             </table>
 
-            <button class="btn btn-success" onclick="concluirCompra()">Concluir compra</button>
+            <button class="btn btn-success" onclick="concluirCompra()" <?=($compra['fechada']=='t'?"style='display:none;'":"")?>>Concluir compra</button>
         </div>
 
         <script src="../../content/js/jquery/jquery-1.12.4.js"></script>
@@ -123,11 +138,7 @@ $salvo = $produtoCtrl->adicionarSalvar();
                         }, response);
                     },
                     search: function () {
-                        // custom minLength
                         var term = extractLast(this.value);
-//                        if (term.length < 2) {
-//                            return false;
-//                        }
                     },
                     focus: function () {
                         // prevent value inserted on focus
@@ -170,7 +181,7 @@ $salvo = $produtoCtrl->adicionarSalvar();
                         url: "add-item-compra.php", 
                         data: itemSelecionado, 
 //                        dataType: 'json',                        
-                        success: function(result){ // retorna o id da compra
+                        success: function(result){ // retorna ids
                             var retorno = JSON.parse(result);
                             
                             // limpa os campos do form

@@ -6,9 +6,7 @@ class ComprasDAO {
 
     public function lista($itensPorPagina, $currentPage) {
 
-        $query = "SELECT p.*, tp.tipo FROM compra p"
-                . " INNER JOIN tipo_compra tp ON tp.id=p.tipo_compra_id"
-                . " ORDER BY p.id ";
+        $query = "SELECT c.* FROM compra c ORDER BY c.id DESC";
         
         // paginação se maior que zero
         if($itensPorPagina>0) {
