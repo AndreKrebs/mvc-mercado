@@ -7,13 +7,10 @@
 É necessário criar o usuário, senha e base de dados conforme descrito abaixo para o sistema poder conectar.
 
 Usuário: softexpert
-
 Senha: 12345
-
 Base de dados: mercado
-
 Arquivo de dump: documents/dump_database.sql
-Se desejar criar a base de dados sem dados: documents/create-database.sql
+Para criar a base de dados sem os dados: documents/create-database.sql
 
 ## Sistema:
 
