@@ -66,4 +66,16 @@ class ProdutosCompraDAO {
         
     }
     
+    public function excluirPorCompra($id) {
+        $sql = "DELETE FROM compra_produto WHERE compra_id = {$id}";
+        
+        $retorno = pg_query($sql);
+        
+        if($retorno) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 }

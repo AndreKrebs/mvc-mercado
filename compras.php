@@ -85,7 +85,7 @@ $compras = new ComprasController();
                             echo "<td>".($item['fechada']=='t'?"Sim":"Não")."</td>";
                             echo "<td>";
                             echo "<button type=\"button\" class=\"btn btn-primary\" onclick=\"location.href='".HOST_APPLICATION."/view/compras/form.php?id={$item['id']}'\">Editar</button>";
-                            echo "<button type=\"button\" class=\"btn btn-danger\" style='margin-left: 10px;' onclick=\"location.href='".HOST_APPLICATION."/view/compras/excluir.php?id={$item['id']}'\">Excluir</button>";
+                            echo "<button type=\"button\" class=\"btn btn-danger\" style='margin-left: 10px; ".($item['fechada']=='t'?"display: none;":"")."' onclick=\"location.href='".HOST_APPLICATION."/view/compras/excluir.php?id={$item['id']}'\">Excluir</button>";
                             echo "</td>";
                             echo "</tr>";
                         }

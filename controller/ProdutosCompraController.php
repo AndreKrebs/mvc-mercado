@@ -37,4 +37,18 @@ class ProdutosCompraController {
         return $model->buscaItensCompra($compraId);
         
     }
+    
+    public function excluirPorCompra() {
+        if(@$_GET) {
+            if(array_key_exists('id', $_GET)){
+                $id = $_GET['id'];
+                
+                $model = new PCModel();
+                
+                return $model->excluirPorCompra($id);
+            }
+        }
+        
+        return false;
+    }
 }

@@ -40,6 +40,15 @@ class ProdutosCompraModel {
         }
     }    
     
+    public function excluirPorCompra($id) {
+        if($id>0) {
+            $dao = new PCDAO();
+            
+            return $dao->excluirPorCompra($id);
+            
+        }
+    }
+    
 }
 
 

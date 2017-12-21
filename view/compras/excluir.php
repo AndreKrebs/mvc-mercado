@@ -4,8 +4,12 @@ error_reporting(E_ALL);
 
 include '../../configs/config.php';
 
-use controller\ProdutosController;
+use controller\ProdutosCompraController;
+use controller\ComprasController;
 
-$produtos = new ProdutosController();
+$produtosCompraCtrl = new ProdutosCompraController();
+$comprasCtrl = New ComprasController(); 
 
-$produtos->excluir();
+if($produtosCompraCtrl->excluirPorCompra() == true) {
+    $comprasCtrl->excluir();
+}

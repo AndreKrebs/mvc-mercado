@@ -40,7 +40,7 @@ $compra = $compraCtrl->buscaRegistro();
         </nav>
         <div class="container fill" style="position: relative;">
             
-            <input type="hidden" id="id" name="id">
+            <input type="hidden" id="id" name="id" value="<?=(is_array($compra) && array_key_exists('id', $compra) && $compra['id']>0?$compra['id']:'') ?>">
             <div <?=($compra['fechada']=='t'?"style='display:none;'":"")?> >
                 <h3>Nova Compra</h3>
 
@@ -76,20 +76,27 @@ $compra = $compraCtrl->buscaRegistro();
                 <tbody id="itens-compra">
                     
                     <?php
-                    $listaItens = $produtosCompraCtrl->buscaItensCompra($compra['id']);
-                    if(is_array($listaItens) && count($listaItens)>0):
-                        foreach ($listaItens as $item): ?>
-                            <tr class="item-compra-<?=$item['id'] ?>">
-                                <td><?=$item['id'] ?></td>
-                                <td><?=$item['nome'] ?></td>
-                                <td>R$ <?=$item['preco'] ?></td>
-                                <td><?=$item['total'] ?></td>
-                                <td>R$ <span class="valortotal"><?=$item['total'] ?></span></td>
-                                <td>R$ <span class="valortotalimposto"><?=$item['total_imposto'] ?></span></td>
-                                <td><button class="btn btn-warning btn-sm" <?=($compra['fechada']=='t'?"style='display:none;'":"")?>  onclick="removeItem(<?=$item['id'] ?>)">Excluir</button></td>
-                            </tr>
-                        <?php
-                        endforeach;
+                    $totalCompra = 0;
+                    $totalCompraImpostos = 0;
+                    if(is_array($compra) && array_key_exists('id', $compra) && $compra['id']>0):
+                        $listaItens = $produtosCompraCtrl->buscaItensCompra($compra['id']);
+                        if(is_array($listaItens) && count($listaItens)>0):
+                            foreach ($listaItens as $item): 
+                                $totalCompra += $item['total'];
+                                $totalCompraImpostos += $item['total_imposto'];
+                            ?>
+                                <tr class="item-compra-<?=$item['id'] ?>">
+                                    <td><?=$item['id'] ?></td>
+                                    <td><?=$item['nome'] ?></td>
+                                    <td>R$ <?=$item['preco'] ?></td>
+                                    <td><?=$item['total'] ?></td>
+                                    <td>R$ <span class="valortotal"><?=$item['total'] ?></span></td>
+                                    <td>R$ <span class="valortotalimposto"><?=$item['total_imposto'] ?></span></td>
+                                    <td><button class="btn btn-warning btn-sm" <?=($compra['fechada']=='t'?"style='display:none;'":"")?>  onclick="removeItem(<?=$item['id'] ?>)">Excluir</button></td>
+                                </tr>
+                            <?php
+                            endforeach;
+                        endif;
                     endif;
                     ?>
                     
@@ -97,10 +104,10 @@ $compra = $compraCtrl->buscaRegistro();
                 <tfoot>
                     <tr>
                         <td colspan="2">
-                            <b>Total impostos: <span id="valor-total-impostos"><?=$compra['total_imposto'] ?></span> </b>
+                            <b>Total impostos: R$ <span id="valor-total-impostos"><?=$totalCompraImpostos ?></span> </b>
                         </td>
                         <td colspan="5">
-                            <b>Total da compra: <span id="valor-total"><?=$compra['total'] ?></span> </b>
+                            <b>Total da compra: R$ <span id="valor-total"><?=$totalCompra ?></span> </b>
                         </td>
                     </tr>
                 </tfoot>
@@ -290,8 +297,8 @@ $compra = $compraCtrl->buscaRegistro();
                     somaTotaisImpostos += parseFloat(value.innerHTML);
                 });
 
-                $("#valor-total-impostos").html("R$ "+somaTotaisImpostos);
-                $("#valor-total").html("R$ "+somaTotais);
+                $("#valor-total-impostos").html(somaTotaisImpostos);
+                $("#valor-total").html(somaTotais);
                 
                 
             }
@@ -301,6 +308,9 @@ $compra = $compraCtrl->buscaRegistro();
                 
                 if(confirm("Deseja concluir a compra, ela não podera ser editada posteriormente ?")){
                     if(idCompra > 0) {
+                        somaTotaisImpostos = $("#valor-total-impostos").html();
+                        somaTotais = $("#valor-total").html();
+                        
                         $.ajax({
                             type: "POST",
                             url: "concluir-compra.php", 
